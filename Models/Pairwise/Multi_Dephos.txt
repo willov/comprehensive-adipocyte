@@ -1,0 +1,69 @@
+********** MODEL NAME
+Multi_Dephos
+
+********** MODEL NOTES
+
+********** MODEL STATES
+d/dt(C)=v_C__C_p
+d/dt(C_p)=-v_C__C_p
+
+C(0)=50
+C_p(0)=50
+
+********** MODEL PARAMETERS
+A_px1=1
+A_px2=1
+A_px3=1
+A_px4=1
+A_px5=1
+A_px6=1
+A_px7=1
+A_px8=1
+A_px9=1
+A_py1=1
+A_py2=1
+A_py3=1
+A_py4=1
+A_py5=1
+A_py6=1
+A_py7=1
+A_py8=1
+A_py9=1
+B_px1=1
+B_px2=1
+B_px3=1
+B_px4=1
+B_px5=1
+B_px6=1
+B_px7=1
+B_px8=1
+B_px9=1
+B_py1=1
+B_py2=1
+B_py3=1
+B_py4=1
+B_py5=1
+B_py6=1
+B_py7=1
+B_py8=1
+B_py9=1
+
+useInterp=1
+
+k_C_C_p_f=1
+k_C_C_p_b=1
+k_C_C_p=1
+
+********** MODEL VARIABLES
+A_p=(1-useInterp)+useInterp*interpcsIQM([A_px1, A_px2, A_px3, A_px4, A_px5, A_px6, A_px7, A_px8, A_px9], [A_py1, A_py2, A_py3, A_py4, A_py5, A_py6, A_py7, A_py8, A_py9], time)
+B_p=(1-useInterp)+useInterp*interpcsIQM([B_px1, B_px2, B_px3, B_px4, B_px5, B_px6, B_px7, B_px8, B_px9], [B_py1, B_py2, B_py3, B_py4, B_py5, B_py6, B_py7, B_py8, B_py9], time)
+
+********** MODEL REACTIONS
+v_C__C_p=-C*k_C_C_p_f  +  C_p*A_p*k_C_C_p_b + C_p*B_p*k_C_C_p
+
+********** MODEL FUNCTIONS
+
+********** MODEL EVENTS
+
+********** MODEL MATLAB FUNCTIONS
+

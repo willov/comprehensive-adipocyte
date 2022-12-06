@@ -1,0 +1,408 @@
+********** MODEL NAME
+combined
+
+********** MODEL NOTES
+
+********** MODEL STATES
+d/dt(IR)                = -vG1a-vG1basal+vG1r+vG1g  %%1 
+d/dt(IR_YP)             = vG1basal+vG1c-vG1d-vG1g   %%2
+d/dt(IRins)             = vG1a-vG1c               %%3
+d/dt(IRi_YP)            = vG1d-vG1e               %%4
+d/dt(IRi)               = vG1e-vG1r               %%5
+d/dt(IRS1)              = vG2b+vG2g-vG2a-vG2basal   %%6
+d/dt(IRS1_YP)           = vG2a+vG2d-vG2b-vG2c       %%7
+d/dt(IRS1_YP_S307P)     = vG2c-vG2d-vG2f           %%8
+d/dt(IRS1_S307P)        = vG2basal+vG2f-vG2g       %%9
+d/dt(X)                 = vG3b-vG3a               %%10
+d/dt(X_P)               = vG3a-vG3b               %%10
+d/dt(PKB)               = -vG4a+vG4b+vG4h          %%12   
+d/dt(PKB_S308P)         = vG4a-vG4b-vG4c           %%13
+d/dt(PKB_T473P)         = -vG4e+vG4f-vG4h          %%14
+d/dt(PKB_S308P_T473P)   = vG4c+vG4e-vG4f           %%15
+d/dt(mTORC1)            = vG5b-vG5a               %%16         
+d/dt(mTORC1a)           = vG5a-vG5b               %%17
+d/dt(mTORC2)            = -vG5c+vG5d              %%18
+d/dt(mTORC2a)           = vG5c-vG5d               %%19
+d/dt(AS160)             = vG6b-vG6a               %%20
+d/dt(AS160_T642P)       = vG6a-vG6b               %%21
+d/dt(GLUT4m)            = vG7a-vG7b               %%22
+d/dt(GLUT4)             = -vG7a+vG7b              %%23
+d/dt(GLUCOSE)           = vG8                    %%24     
+d/dt(S6K)               = vG9b-vG9a               %%25
+d/dt(S6K_T389P)         = vG9a-vG9b               %%26
+d/dt(S6)                = vG9d-vG9c               %%27
+d/dt(S6_S235_S236P)     = vG9c-vG9d               %%28                         
+d/dt(ERK)               = -vG10a-vG10basal+vG10c   %%29                        
+d/dt(ERK_T202_Y204P)    = vG10a+vG10basal-vG10b    %%30                      
+d/dt(seqERK)            = vG10b-vG10c             %%31 
+d/dt(Elk1)              = -vG11a+vG11b            %%32 
+d/dt(Elk1_S383P)        = vG11a-vG11b             %%33                
+d/dt(FOXO)              = -vG12a+vG12b                                                   
+d/dt(FOXO_S256P)        = vG12a-vG12b
+
+d/dt(BETA3) = vA4c - vA4a
+d/dt(BETA3a) = vA4a - vA4b
+d/dt(BETA3de)= vA4b - vA4c
+
+d/dt(Ca) = vApip_Ca - vAremCa
+d/dt(ATP) = vApip_ATP - vAdegATP
+d/dt(cAMP) = vApip_cAMP - vA6b + vL6a - vL6b 
+
+d/dt(Res) = 0
+d/dt(Rel)= vARes_Rel - vARel_PM + vAPM_Rel
+d/dt(PM)= vARel_PM - vAPM_Rel - vAPM
+d/dt(Endo)=vACa_Endo-vAEndo
+d/dt(Adiponectin)=vAPM
+
+
+d/dt(pipCa) = - vApip_Ca*kAVcell/kAVpip
+d/dt(pipATP) = - vApip_ATP*kAVcell/kAVpip
+d/dt(pipcAMP) = - vApip_cAMP*kAVcell/kAVpip
+
+d/dt(BETA2) = -vL4a + vL4b
+d/dt(BETA2a) = vL4a - vL4b 
+d/dt(ALPHA) = -vL3a + vL3b
+d/dt(ALPHAa) = vL3a - vL3b
+d/dt(AC) = -vL5a + vL5b
+d/dt(ACa) = vL5a - vL5b + vA5a
+d/dt(PDE3B) = -vL2a + vL2b
+d/dt(PDE3Ba) = vL2a - vL2b
+
+d/dt(HSL) = -vL7a + vL7b
+d/dt(HSLp) = vL7a - vL7b
+d/dt(Gly) = vL8a - vL8b
+d/dt(FA) = 3*vL8a - vL8c
+
+IR(0)               = 100
+IR_YP(0)          	= 0
+IRins(0)            = 0          
+IRi_YP(0)           = 0
+IRi(0)              = 0 
+IRS1(0)             = 100
+IRS1_YP(0)          = 0
+IRS1_YP_S307P(0)   	= 0
+IRS1_S307P(0)     	= 0
+X(0)                = 100
+X_P(0)            	= 0
+PKB(0)              = 100
+PKB_S308P(0)      	= 0
+PKB_T473P(0)       	= 0
+PKB_S308P_T473P(0)	= 0
+mTORC1(0)           = 100
+mTORC1a(0)          = 0
+mTORC2(0)           = 100
+mTORC2a(0)          = 0
+AS160(0)            = 100
+AS160_T642P(0)     	= 0
+GLUT4m(0)           = 0
+GLUT4(0)            = 100
+GLUCOSE(0)          = 0
+S6K(0)              = 100
+S6K_T389P(0)       	= 0
+S6(0)               = 100
+S6_S235_S236P(0)    = 0
+ERK(0)              = 100                                               
+ERK_T202_Y204P(0) 	= 0                                              
+seqERK(0)           = 0
+Elk1(0)             = 100                                               
+Elk1_S383P(0) 	    = 0 
+FOXO(0)             = 100                                       
+FOXO_S256P(0)       = 0 
+
+BETA3(0)=100
+BETA3a(0)=0
+BETA3de(0)=0
+
+Ca(0)= 0
+ATP(0)= 0
+cAMP(0)= 0
+
+Res(0)= 99
+Rel(0)= 1
+PM(0)= 0
+Endo(0)=0
+Adiponectin(0)=0
+
+pipCa(0)=0
+pipATP(0)=0
+pipcAMP(0)=0
+
+BETA2(0) = 100
+BETA2a(0) = 0
+ALPHA(0) = 80
+ALPHAa(0) = 20
+AC(0) = 80
+ACa(0) = 20
+%PKB_L(0) = 80
+%PKB473(0) = 20
+PDE3B(0) = 80
+PDE3Ba(0) = 20
+
+HSL(0) = 80
+HSLp(0) = 20
+Gly(0) = 0
+FA(0)= 0
+
+********** MODEL PARAMETERS
+
+kG1a = 0.633         %%2
+kG1basal = 0.0368    %%3
+kG1c = 0.877         %%4
+kG1d = 31.0      	%%5                   
+kG1f = 0.368 	 	%%6                   
+kG1g = 1940      	%%7                   
+kG1r = 0.547      	%%8                   
+kG2a = 3.23         	%%9                   
+kG2c = 5760       	%%10                   
+
+kG2basal = 0.0423  	%%10                   
+kG2b = 3420        	%%12                   
+kG2d = 281       	%%13                   
+kG2f = 2.91       	%%14                   
+kG2g = 0.267       	%%15                   
+kG3a = 6.90        	%%16                   
+kG3b = 0.0988     	%%17                   
+kG4a = 5790       	%%18   
+               
+kG4b = 34.8          %%19                   
+kG4c = 4.46      	%%20                   
+kG4e = 42.8        	%%21                   
+kG4f = 144         	%%22                   
+kG4h = 0.536         %%23                   
+kG5a1 = 1.84         %%24                   
+kG5a2 = 0.0551     	%%25                   
+kG5b = 24.8      	%%26                   
+kG5d = 1.06       	%%27  
+kG5c = 0.0858        %%28                   
+
+kG6a1 = 2.65      	%%29                   
+kG6a2 = 0.410      	%%30                   
+kG6b = 65.2         	%%31                   
+kG7a = 51.0        	%%32                   
+kG7b = 2290          %%33                   
+kG8 = 0.0465      	%%34                   
+kGglut1 = 0.168     	%%35                   
+kGmG4 = 3.70         %%36
+kGmG1 = 1.14         %%37  
+kG9a = 0.000022   	%%38                   
+kG9b = 0.0444       	%%39                   
+kG9c1 = 0.000692    	%%40                   
+kG9c2 = 0.000159     %%41                   
+kG9d = 0.0533       	%%42     
+kG10a1 = 0.0685      %%43    
+kG10a2 = 0.00461     %%44                                                              
+kG10basal = 0.00800  %%45
+kG10b = 0.143        %%46                                                                 
+kG10c = 0.00683      %%47 
+kG11a = 0.000108     %%48
+kG11b = 0.603        %%49
+kG12a1 =  0.778     % 0.765
+kG12a2 =  11.0     % 14.63
+kG12b = 1.03       % 1.00 
+kGm12 = 0.163       % 0.0267 
+
+kLdrift=0
+kL4a = 62
+kL4a2 = 0
+kL4b = 0.12
+
+kL3b = 1e-5
+kL3a = 0.0004
+kL3a2 = 1
+kL5a = 0.0025
+kL5b = 4.6
+
+kL1a=1
+% kL1a2=1
+% kL1b=1
+
+kL2a = 2.1
+kL2b = 7.3
+kL6a = 0.2
+kL6b = 0.05
+kL7a = 0.3
+kL7b =  0.07
+kL8a = 20
+kL8c = 1 % reesterification parameter
+kLclear = 1e-3
+
+kArel= 1
+kAexo= 1
+kACaATP=1
+kAcAMP= 1
+kACa2=1
+kAATP2=1
+kAEndo=1
+kACacAMP=1
+kAm=1
+kARelBasal = 1
+
+kAdegcAMP=1
+kAremCa=1
+kAdegATP=1
+
+kADiffcAMP=1
+kADiffCa=1
+kADiffATP=1
+
+kA4a=1
+kACL=1
+kA4c=1
+kA4b=1
+kA5a=1
+kAVpip=1
+kAVcell=1
+
+phe_effect = 1
+
+isoscale = 10
+
+min3=0
+% min1=0
+min2=0
+
+EC503=4
+EC502=1
+n3=8
+n2=1
+
+diabetes=1
+diab_reest = 1
+
+pip = 0
+
+phe = 0 % µM
+iso = 0 % µM
+epi = 0 % µM
+CL = 0 % µM
+
+gluc = 0
+ins = 37.2 % nM
+
+********** MODEL VARIABLES
+u=PM*kAexo-kAEndo*Endo
+uEndo = kAEndo*Endo
+uExo  = PM*kAexo
+
+measuredIR        = (IR_YP + IRi_YP)
+measuredIRS1      = (IRS1_YP + IRS1_YP_S307P)
+measuredIRS1307   = (IRS1_YP_S307P + IRS1_S307P)
+measuredPKB308    = (PKB_S308P+PKB_S308P_T473P) 
+measuredPKB473    = (PKB_T473P+PKB_S308P_T473P)
+measuredAS160     = (AS160_T642P)
+measuredmTORC1    = mTORC1a
+measuredS6K       = (S6K_T389P)
+measuredS6        = (S6_S235_S236P)
+measuredGLUT4     = GLUT4m      
+measuredGLUCOSE   = (GLUCOSE)
+fractionIRi       = (IRi+IRi_YP)/100
+measuredmTORC2    = mTORC2a
+measuredERK       = (ERK_T202_Y204P)
+measuredElk1      = (Elk1_S383P) 
+measuredIRS1ds    = (IRS1_YP + IRS1_YP_S307P)
+measuredFOXO      = (FOXO_S256P)
+
+Pde3b = PDE3Ba
+
+y_PKB473=PKB_T473P+PKB_S308P_T473P
+y_PKB308=PKB_S308P+PKB_S308P_T473P
+y_HSL=HSLp
+y_Glycerol=Gly-kLdrift*time
+y_FA=FA-kLdrift*time
+
+Ins_3 = 100+(min3-100)/(1+(ins/(10^EC503))^n3);
+%Ins_1 = 100+(min1-100)/(1+(ins/(10^EC501))^n1);
+Ins_2 = 100+(min2-100)/(1+(ins/(10^EC502))^n2);
+
+********** MODEL REACTIONS
+
+vG1a      = kG1a*IR*ins
+vG1basal  = kG1basal*IR
+vG1c      = IRins*kG1c
+vG1d      = IR_YP*kG1d
+vG1e      = IRi_YP*kG1f*X_P
+vG1g      = IR_YP*kG1g
+vG1r      = IRi*kG1r
+vG2a      = IRS1*kG2a*IRi_YP
+vG2b      = IRS1_YP*kG2b
+vG2c      = IRS1_YP*kG2c*mTORC1a*diabetes
+vG2d      = IRS1_YP_S307P*kG2d
+vG2f 	 = IRS1_YP_S307P*kG2f
+vG2basal  = IRS1*kG2basal
+vG2g 	 = IRS1_S307P*kG2g
+vG3a      = X*kG3a*IRS1_YP
+vG3b      = X_P*kG3b
+vG4a      = kG4a*PKB*IRS1_YP
+vG4b      = kG4b*PKB_S308P
+vG4c      = kG4c*PKB_S308P*mTORC2a
+vG4e      = kG4e*PKB_T473P*IRS1_YP_S307P
+vG4f      = kG4f*PKB_S308P_T473P
+vG4h      = kG4h*PKB_T473P
+vG5a      = mTORC1*(kG5a1*PKB_S308P_T473P+kG5a2*PKB_S308P)
+vG5b      = mTORC1a*kG5b
+vG5c      = mTORC2*(kG5c*IRi_YP + kL1a*cAMP)
+vG5d      = kG5d*mTORC2a
+vG6a      = AS160*(kG6a1*PKB_S308P_T473P+kG6a2*PKB_T473P)
+vG6b      = AS160_T642P*kG6b
+vG7a      = GLUT4*kG7a*AS160_T642P
+vG7b      = GLUT4m*kG7b
+vG8       = kG8*GLUT4m*gluc/(kGmG4+gluc)+kGglut1*gluc/(kGmG1+gluc) 
+vG9a      = S6K*kG9a*mTORC1a
+vG9b      = S6K_T389P*kG9b
+vG9c      = S6*kG9c1*S6K_T389P+kG9c2*S6*ERK_T202_Y204P
+vG9d      = S6_S235_S236P*kG9d
+vG10basal = kG10basal*ERK                                                      
+vG10a     = kG10a1*ERK*IRi_YP+kG10a2*ERK*IRS1_YP_S307P                                                                                               
+vG10b     = kG10b*ERK_T202_Y204P                                                                                                              
+vG10c     = kG10c*seqERK
+vG11a     = kG11a*Elk1*ERK_T202_Y204P                                                                                                 
+vG11b     = kG11b*Elk1_S383P 
+vG12a     = (kG12a1*(PKB_T473P+PKB_S308P_T473P)+kG12a2*ERK_T202_Y204P)/(kGm12+FOXO)*FOXO            
+vG12b     = kG12b*FOXO_S256P
+
+vL4a = (kL4a * (iso*isoscale + epi) + kL4a2) * BETA2
+vL4b = kL4b * BETA2a
+vL3a = (kL3a*Ins_3*epi+kL3a2)*(1-phe_effect*phe)*ALPHA
+vL3b = kL3b * ALPHAa
+
+%vL1a = (kL1a*cAMP+kL1a2*Ins_1)*PKB_L
+%vL1b = kL1b*PKB473
+%vL2a = kL2a*PKB473*PDE3B
+vL2a = kL2a*(PKB_T473P+PKB_S308P_T473P)*PDE3B
+vL2b = kL2b * PDE3Ba*Ins_2
+vL5a = kL5a * BETA2a * AC  
+vL5b = kL5b * ALPHAa * ACa
+vL6a = kL6a*ACa
+vL6b = kL6b*PDE3Ba*cAMP
+vL7a = kL7a*cAMP*HSL
+vL7b = kL7b * HSLp
+vL8a = kL8a * HSLp
+vL8b = kLclear * Gly
+vL8c = (kLclear+kL8c*diab_reest) * FA 
+
+vApip_cAMP = kADiffcAMP*(pipcAMP - cAMP)*pip
+vApip_Ca = kADiffCa*(pipCa - Ca)*pip
+vApip_ATP = kADiffATP*(pipATP - ATP)*pip
+
+vA4a = kA4a*(epi + kACL*CL) * BETA3
+vA4b = kA4b * BETA3a
+vA4c = kA4c*BETA3de
+
+vA5a = kA5a*BETA3a
+vA6b = kAdegcAMP*cAMP 
+vAremCa = kAremCa*Ca 
+vAdegATP = kAdegATP*ATP 
+
+vARes_Rel= ((Ca/(kAm+Ca))*(kACa2+kAATP2*ATP)+kARelBasal)*Res
+vARel_PM= cAMP*(kAcAMP + (Ca/(kAm+Ca))*ATP*kACaATP)*Rel
+vAPM_Rel= kArel*PM
+vAPM= kAexo*PM
+
+vACa_Endo=kACacAMP*cAMP*Ca
+vAEndo = kAEndo*Endo
+********** MODEL FUNCTIONS
+
+********** MODEL EVENTS
+
+********** MODEL MATLAB FUNCTIONS
+
