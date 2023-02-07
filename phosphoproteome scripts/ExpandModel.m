@@ -20,16 +20,13 @@ try
     currentPath=pwd;
 
     %% Load stuff
-    matchedData=[];
-
-    matchedData=GetPhosphoproteomeData(matchedData);
+    matchedData=GetPhosphoproteomeData();
     matchedData(ismember(matchedData.Genenamesprimary, ''),:)=[];
     repeats(:,:,1)=matchedData.TC_Exp1;
     repeats(:,:,2)=matchedData.TC_Exp2;
     repeats(:,:,3)=matchedData.TC_Exp3;
     matchedData(any(sum(~isnan(repeats),3)<2,2),:)=[]; % Remove data having less than two repeats
-    matchedData(strcmp(matchedData.Cluster,''),:)=[]; % Remove unnecessary column
-
+    
     %% Do inital stuff
     global dgf
     global nBetterMulti
