@@ -95,6 +95,8 @@ fprintf(fcost, 'Cost-total: %.2f, limit: %.2f (dgf=%i), pass: %d\n', costCombine
 %% Plot the agreements to the extended data set
 fprintf("\n\nPlotting the model with uncertainty for the main figues\n")
 
+PlotIsoEffectGlu(optParam, model, expInd, data.Rajan)
+
 PlotAgreementGlu(optParam, model, expInd, data.Rajan, baseFolder);
 PlotAgreementLipo(optParam, modelName, res, useHSL, 0, baseFolder)
 PlotAdi(optParam, modelName, expInd, 1,baseFolder, useCL_ATP);
