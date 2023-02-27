@@ -1,8 +1,7 @@
-function [sim, cost] = SimulateGlucose(param, model, time, isoIn, iso)
+function [sim, cost] = SimulateGlucose(param, model, time)
     if nargin<3
         time=0:0.01:60;
     end
-    if nargin<4, isoIn=[]; end
 
     cost = 0;
     sim=struct();
@@ -82,11 +81,6 @@ function [sim, cost] = SimulateGlucose(param, model, time, isoIn, iso)
     initcond_n = sim.n_0.statevalues(end,:);    % using the steady state values from the baseline-simulation
     initcond_d = sim.d_0.statevalues(end,:);  
 
-    %% Simulate 30 minutes with no insulin input if iso is given
-    if ~isempty(isoIn)
-        param_n(end-3) = isoIn;
-        param_d(end-3) = isoIn;
-    end
     %% Insulin stimulation simulations
     
     ins_conc = [0.001 0.01 0.03 0.1 0.3 1 10 100];
