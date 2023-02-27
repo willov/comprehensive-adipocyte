@@ -95,8 +95,6 @@ fprintf(fcost, 'Cost-total: %.2f, limit: %.2f (dgf=%i), pass: %d\n', costCombine
 %% Plot the agreements to the extended data set
 fprintf("\n\nPlotting the model with uncertainty for the main figues\n")
 
-PlotIsoEffectGlu(optParam, model, expInd, data.Rajan)
-
 PlotAgreementGlu(optParam, model, expInd, data.Rajan, baseFolder);
 PlotAgreementLipo(optParam, modelName, res, useHSL, 0, baseFolder)
 PlotAdi(optParam, modelName, expInd, 1,baseFolder, useCL_ATP);
@@ -104,6 +102,10 @@ PlotAdi(optParam, modelName, expInd, 1,baseFolder, useCL_ATP);
 exportgraphics(figure(11), 'Fig. 3 Estimation-lipolysis.pdf', 'ContentType','vector')
 exportgraphics(figure(41), 'Fig. 4 Estimation-adiponectin.pdf', 'ContentType','vector')
 exportgraphics(figure(61), 'Fig. 5 Estimation-glucose.pdf', 'ContentType','vector')
+
+%% Plot the crosstalk, the effect of iso on glucose uptake
+PlotIsoEffectGlu(optParam, model, expInd)
+exportgraphics(figure(64), 'Fig. 6 Glucose-iso.pdf', 'ContentType','vector')
 
 %% Final cleanup
 close all
