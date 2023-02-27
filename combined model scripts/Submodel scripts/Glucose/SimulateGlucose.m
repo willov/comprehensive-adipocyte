@@ -1,4 +1,4 @@
-function [sim, cost] = SimulateGlucose(param, model, time, isoIn)
+function [sim, cost] = SimulateGlucose(param, model, time, isoIn, iso)
     if nargin<3
         time=0:0.01:60;
     end
