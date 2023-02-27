@@ -292,6 +292,6 @@ title('Legend for layer')
 
 % Set final properties of the figure
 set(figure(fig), 'outerposition',[166 1 1722 1396], 'PaperType','a4')
-exportgraphics(figure(fig), '../Fig. 8 Inhibitors.pdf', 'ContentType','vector')
+exportgraphics(figure(fig), '../Fig. 10 Inhibitors.pdf', 'ContentType','vector')
 close all
 end

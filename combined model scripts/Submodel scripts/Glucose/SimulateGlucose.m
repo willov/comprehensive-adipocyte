@@ -1,8 +1,8 @@
-function [sim, cost] = SimulateGlucose(param, model, time, idxInhib, inhib)
+function [sim, cost] = SimulateGlucose(param, model, time, isoIn, iso)
     if nargin<3
         time=0:0.01:60;
     end
-    if nargin<4, idxInhib=[]; end
+    if nargin<4, isoIn=[]; end
 
     cost = 0;
     sim=struct();
@@ -78,27 +78,22 @@ function [sim, cost] = SimulateGlucose(param, model, time, idxInhib, inhib)
         cost = 1e24;
         return
     end
-    
+
+    initcond_n = sim.n_0.statevalues(end,:);    % using the steady state values from the baseline-simulation
+    initcond_d = sim.d_0.statevalues(end,:);  
+
+    %% Simulate 30 minutes with no insulin input if iso is given
+    if ~isempty(isoIn)
+        param_n(end-3) = isoIn;
+        param_d(end-3) = isoIn;
+    end
     %% Insulin stimulation simulations
+    
     ins_conc = [0.001 0.01 0.03 0.1 0.3 1 10 100];
     try
         % Controls
-        
-        if strcmp(idxInhib,'torin')
-            states=IQMstates(model);
-            ic=sim.n_0.statevalues(end,:);
-            ic(contains(states, 'mTORC1'))=ic(contains(states, 'mTORC1'))./inhib(1);
-            ic(contains(states, 'mTORC2'))=ic(contains(states, 'mTORC2'))./inhib(1);
-            sim.inhib=model(0:30, ic, param_n, simOptions);
-            initcond_n=sim.inhib.statevalues(end,:);
 
-        elseif any(idxInhib)
-            param_n(idxInhib)=param_n(idxInhib)./inhib;
-            sim.inhib=model(0:30, sim.n_0.statevalues(end,:), param_n, simOptions);
-            initcond_n=sim.inhib.statevalues(end,:);
-        else
-            initcond_n = sim.n_0.statevalues(end,:);    % using the steady state values from the baseline-simulation
-        end
+
 
         sim.dr_n001 = model(time(1:idxT30), initcond_n, [param_n(1:end-1) ins_conc(1)], simOptions);   % 30 min simulation with 0.01 nM insulin
         sim.dr_n1a = model(time(1:idxT30), initcond_n, [param_n(1:end-1) ins_conc(2)], simOptions);   % 15 min simulation with 0.01 nM insulin
@@ -113,7 +108,6 @@ function [sim, cost] = SimulateGlucose(param, model, time, idxInhib, inhib)
         sim.ds2_n = model(time(1:idxT4), initcond2_n, [param_n(1:end-1) 10], simOptions);        % 4 min simulation with 10 nM insulin for double step data
         
         % Diabetics
-        initcond_d = sim.d_0.statevalues(end,:);  
         sim.dr_d001 = model(time(1:idxT30), initcond_d, [param_n(1:end-1) ins_conc(1)], simOptions);   % 30 min simulation with 0.01 nM insulin
         sim.dr_d1a = model(time(1:idxT30), initcond_d, [param_d(1:end-1) ins_conc(2)], simOptions);   % 15 min simulation with 0.01 nM insulin   
         sim.dr_d1b = model(time(1:idxT30), initcond_d, [param_d(1:end-1) ins_conc(3)], simOptions);   % 15 min simulation with 0.03 nM insulin

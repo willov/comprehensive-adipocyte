@@ -103,6 +103,10 @@ exportgraphics(figure(11), 'Fig. 3 Estimation-lipolysis.pdf', 'ContentType','vec
 exportgraphics(figure(41), 'Fig. 4 Estimation-adiponectin.pdf', 'ContentType','vector')
 exportgraphics(figure(61), 'Fig. 5 Estimation-glucose.pdf', 'ContentType','vector')
 
+%% Plot the crosstalk, the effect of iso on glucose uptake
+PlotIsoEffectGlu(optParam, model, expInd)
+exportgraphics(figure(64), 'Fig. 6 Glucose-iso.pdf', 'ContentType','vector')
+
 %% Final cleanup
 close all
 warning on
