@@ -134,10 +134,15 @@ for i=1:length(phosphorylations)
         interactions(interactions.Tested~=min(interactions.Tested),:)=[]; %Remove all tested, not best, interactions
         layer = unique(interactions.ExpansionIteration);
         maxLayer=max(list.ExpansionIteration(list.Tested<chi2inv(0.95,length(time)-1))); % only works if loading the final layer
-        if maxLayer==5
-            maxLayer = 77; % To manage the colors if only plotting the first
+        if maxLayer<15
+            formatFig9 = true;
+            maxLayer = 57; % To manage the colors if only plotting the first
+        else
+            formatFig9 = false;
         end
         data=expData(ismember(expData.Genenamesprimary,protein),:);
+
+
         data.simulatedValues=data.simulatedValues/data.simulatedValues(1);
 
         cost=sum((data.meanValues-normalSim.statevalues(ismember(normalSim.time,time),i)').^2./data.SEMValues.^2);
@@ -170,7 +175,7 @@ for i=1:length(phosphorylations)
             PlotSims(protein, layer, maxLayer, time, data, normTime,normVal,[],[], [],'', titleStr); % plot normal
         end
         if plotDiabetes
-            PlotSims(protein, layer, maxLayer, time, data, normTime,normVal,diabTime,diabVal, [],'', titleStr); % plot diabetes
+            PlotSims(protein, layer, maxLayer, time, data, normTime,normVal,diabTime,diabVal, [],'', titleStr, formatFig9); % plot diabetes
         end
         if plotInhib
             type.type='MK';
@@ -193,7 +198,8 @@ else
 end
 end
 
-function [] = PlotSims(protein, layer, maxLayer, time, data, normTime,normVal,diabTime,diabVal, inhibSim, inhibType, titleStr)
+function [] = PlotSims(protein, layer, maxLayer, time, data, normTime,normVal,diabTime,diabVal, inhibSim, inhibType, titleStr, formatFig9)
+if nargin <13, formatFig9=false; end
 clf
 
 colorNorm = [2 64 167]/256;
@@ -226,16 +232,20 @@ if ~isempty(inhibSim)
         value=data.meanValues(1,ismember(time,20))*(data.MKMean);
         upper=data.meanValues(1,ismember(time,20))*(data.MKMean+data.MKSEM);
         lower=data.meanValues(1,ismember(time,20))*(data.MKMean-data.MKSEM);
+        plot(20, data.meanValues(1,ismember(time,20)).*data.MKExpInsulin, 'o','MarkerSize',5,'linewidth', 1.5,'Color',colorInhib, 'MarkerFaceColor','None')
     elseif strcmp(inhibType.type,'LY')
         value=data.meanValues(1,ismember(time,20))*(data.LYMean);
         upper=data.meanValues(1,ismember(time,20))*(data.LYMean+data.LYSEM);
         lower=data.meanValues(1,ismember(time,20))*(data.LYMean-data.LYSEM);
+        plot(20, data.meanValues(1,ismember(time,20)).*data.LYExpInsulin, 'o','MarkerSize',5,'linewidth', 1.5,'Color',colorInhib, 'MarkerFaceColor','None')
     else
         disp('Something went wrong.. Incorrect inhibition type!')
     end
-    errorbar(20,value,upper-lower ,'o','linewidth',3,'Color',colorInhib, 'CapSize',12, 'MarkerFaceColor','auto')
+    hold on
+    errorbar(20,value,(upper-lower)/2 ,'o','linewidth',3,'Color',colorInhib, 'CapSize',12, 'MarkerFaceColor','auto')
 end
 
+plot(time(2:end), 2.^[data.TC_Exp1; data.TC_Exp2; data.TC_Exp3], 'o','MarkerSize',5,'linewidth', 1.5,'Color',colorNorm, 'MarkerFaceColor','None')
 errorbar(time,data.meanValues,data.SEMValues,'o','linewidth',3,'Color',colorNorm,'CapSize',12, 'MarkerFaceColor','auto') % Plot data
 
 axis tight
@@ -243,7 +253,11 @@ box off
 xlabel('Time (min)')
 ylabel('Fold over basal')
 set(gca,'fontsize',26)
-set(gcf, 'Units','pixels', 'outerposition',[0 0 2560 1440], 'PaperType','a4')
+if formatFig9 % only for figure 9
+    set(gcf, 'Units','pixels', 'outerposition',[731   292   809   515],'PaperType','a4') %format for the figure 9 in the paper
+else
+    set(gcf, 'Units','pixels', 'outerposition',[0 0 2560 1440], 'PaperType','a4')
+end
 
 %% setup legend
 entries={'Normal'}';
@@ -253,9 +267,9 @@ if ~isempty(diabVal)
 end
 if ~isempty(inhibSim)
     inhibEntries=cellstr(strcat(inhibType.type,num2str(inhibType.values')));
-    entries=[entries; inhibEntries; {[inhibType.type ' data']}];
+    entries=[entries; inhibEntries; {'';'';'';[inhibType.type ' data']}];
 end
-entries=[entries; {'Normal data'}];
+entries=[entries; {'';'';'';'Normal data'}];
 
 legend(entries,'location','best')
 title(titleStr, 'Interpreter','none')

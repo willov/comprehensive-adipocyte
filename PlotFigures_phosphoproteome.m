@@ -24,7 +24,7 @@ try
     %% Plot supplemental timeseries
     disp('Plotting diabetes time series for the first 5 layers.')
     load('Results/layer6.mat','x', 'list','expData','structure','parameters') % Note: the second added layer is empty, therefore the fifth layer correspond to the saved layer6.
-    list.ExpansionIteration(list.ExpansionIteration>2) = list.ExpansionIteration(list.ExpansionIteration>2)-1; % Adjust the layer names since layer 2 is empty
+    list = RemoveEmptyLayers(list);
     modelName='layer5';
     disp('Starting to build the model file.')
     GenerateModel(structure,modelName,pwd,100);
@@ -44,6 +44,7 @@ try
     if plotSupplemental
         disp('Plotting all supplemental figures. This might take a while. ')
         load('Results/DataDriven.mat','x', 'list','expData','structure','parameters') % Load to restart the algorithm from this point later on if necessary
+        list = RemoveEmptyLayers(list);
         modelName='FinalExpandedModel';
         GenerateModel(structure,modelName,pwd,100);
         IQMmakeMEXmodel(IQMmodel([modelName '.txt']))
@@ -63,4 +64,15 @@ catch err
     cd(cwd)
     rethrow(err)
 end
+end
+
+function [list] = RemoveEmptyLayers(list)
+
+layers = list.ExpansionIteration;
+maxlayer = max(layers(~isinf(layers)));
+emptyLayers = find(~ismember(1:maxlayer, layers));
+for i =1:length(layers)
+    layers(i) = layers(i)-sum(emptyLayers<layers(i));
+end
+list.ExpansionIteration = layers;
 end

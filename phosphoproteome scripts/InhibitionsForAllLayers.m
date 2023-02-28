@@ -1,6 +1,6 @@
 function []=InhibitionsForAllLayers(coreModel)
 
-choice = input('Do you want to rerun the calculations, or only plot the figure? \nRerunning the calculations will be slow. \nOnly plot? \nPress ctrl+C to cancel \n(y/n):  ', 's');
+choice = input('Do you want to rerun the calculations, or only plot the figure? \nRerunning the calculations will be slow. \nOnly plot? \nPress ctrl+C to cancel \n(Y/n):  ', 's');
 if lower(choice)=='n'
     files = [dir('Results/empty*'); dir('Results/layer*')];
     layers=double(regexprep(string({files.name}),{'[a-zA-Z\.]'},{''}));
@@ -27,7 +27,7 @@ if lower(choice)=='n'
     disp('Calculating prediction accuracy for each layer, this may take a while')
 
     for i = 1:length(files)
-        fprintf('Done with %i of %i layers\n', i, length(files))
+        fprintf('\nCalculating accuracy for layer %i (of %i layers)\n\n', i, length(files))
         try
             load([files(i).folder '/' files(i).name],'list','expData','structure','parameters', 'layer', 'rel', 'layerStructure')
 
@@ -189,7 +189,7 @@ axis([direction_MK.Layer(1), direction_MK.Layer(end), ylower,100])
 % yticks((0:5)*10+50)
 yticks(0:25:100)
 xt = ((0:4)*ceil(((max(direction_MK.Layer)-min(direction_MK.Layer))/6)/10)*10+ceil(min(direction_MK.Layer)/10)*10);
-xticks([min(direction_MK.Layer) xt max(direction_MK.Layer)])
+xticks(unique([min(direction_MK.Layer) xt max(direction_MK.Layer)]))
 box off
 set(gca, 'FontSize',20)
 
@@ -235,7 +235,7 @@ set(gca,'FontSize', 15)
 axis([direction_LY.Layer(1), direction_LY.Layer(end), ylower,100])
 yticks(0:25:100)
 xt = ((0:4)*ceil(((max(direction_LY.Layer)-min(direction_LY.Layer))/6)/10)*10+ceil(min(direction_LY.Layer)/10)*10);
-xticks([min(direction_LY.Layer) xt max(direction_LY.Layer)])
+xticks(unique([min(direction_LY.Layer) xt max(direction_LY.Layer)]))
 box off
 set(gca, 'FontSize',20)
 
@@ -257,7 +257,7 @@ set(gca, 'YScale', 'log')
 set(gca, 'FontSize',20)
 axis([direction_LY.Layer(1), direction_LY.Layer(end), 0.5, maxAdditions])
 xt = ((0:4)*ceil(((max(direction_LY.Layer)-min(direction_LY.Layer))/6)/10)*10+ceil(min(direction_LY.Layer)/10)*10);
-xticks([min(direction_LY.Layer) xt max(direction_LY.Layer)])
+xticks(unique([min(direction_LY.Layer) xt max(direction_LY.Layer)]))
 yticks(10.^(0:3))
 
 %%% PLOT LEGENDS
@@ -286,7 +286,7 @@ box off
 
 axis([direction_LY.Layer(1), direction_LY.Layer(end), ylower,100])
 xt = ((0:4)*ceil(((max(direction_LY.Layer)-min(direction_LY.Layer))/6)/10)*10+ceil(min(direction_LY.Layer)/10)*10);
-xticks([min(direction_LY.Layer) xt max(direction_LY.Layer)])
+xticks(unique([min(direction_LY.Layer) xt max(direction_LY.Layer)]))
 
 title('Legend for layer')
 
